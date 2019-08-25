@@ -23,7 +23,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 public class Jukebox implements Runnable {
 
     public void run() {
-
+    	Song theRun = new Song(TheRun.mp3);
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
 
