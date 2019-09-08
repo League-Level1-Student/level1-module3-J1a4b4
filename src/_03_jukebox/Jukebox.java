@@ -5,6 +5,8 @@ package _03_jukebox;
  */
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +14,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,10 +25,20 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
-
+public class Jukebox implements Runnable, ActionListener {
+	JFrame frame;
+	JPanel panel;
+	JButton buttonI;
+	JButton buttonII;
+	JButton buttonIII;
+	JButton buttonIV;
+	
+	Song theRun = new Song("TheRun.mp3");
+	Song vibraphone = new Song("Vibraphone.mp3");
+	Song guitar = new Song("GuitarMusic.mp3");
+	Song expressions = new Song("ExpressionsOfTheMind.mp3");
+	
     public void run() {
-    	Song theRun = new Song(TheRun.mp3);
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
 
@@ -36,6 +51,31 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+    	frame = new JFrame();
+    	panel = new JPanel();
+    	buttonI = new JButton();
+    	buttonII = new JButton();
+    	buttonIII = new JButton();
+    	buttonIV = new JButton();
+    	panel.add(buttonI);
+    	panel.add(buttonII);
+    	panel.add(buttonIII);
+    	panel.add(buttonIV);
+    	frame.add(panel);
+    	buttonI.addActionListener(this);
+    	buttonII.addActionListener(this);
+    	buttonIII.addActionListener(this);
+    	buttonIV.addActionListener(this);
+    	buttonI.setSize(50, 50);
+    	buttonI.setText("The Run");
+    	buttonII.setSize(50, 50);
+    	buttonII.setText("Vibraphone");
+    	buttonIII.setSize(50, 50);
+    	buttonIII.setText("Guitar Music");
+    	buttonIV.setSize(50, 50);
+    	buttonIV.setText("Expressions of the Mind");
+    	frame.setVisible(true);
+    	frame.pack();
     }
     
     
@@ -44,6 +84,34 @@ public class Jukebox implements Runnable {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton buttonClicked = (JButton) e.getSource();
+		if (buttonClicked == buttonI) {
+			vibraphone.stop();
+			expressions.stop();
+			guitar.stop();
+			theRun.play();
+		}else if (buttonClicked == buttonII) {
+			guitar.stop();
+			expressions.stop();
+			theRun.stop();
+			vibraphone.play();
+		}else if (buttonClicked == buttonIII) {
+			expressions.stop();
+			theRun.stop();
+			vibraphone.stop();
+			guitar.play();
+		}else if (buttonClicked == buttonIV) {
+			guitar.stop();
+			theRun.stop();
+			vibraphone.stop();
+			expressions.play();
+		}
+		
 	}
 
 }
