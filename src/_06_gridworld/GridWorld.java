@@ -24,7 +24,7 @@ public class GridWorld {
 		bugII.setColor(Color.BLUE);
 		bugII.setDirection(90);
 		for (int i = 1; i < 9; i++) {
-			for (int j = 1; j < 9; j++) {
+			for (int j = 0; j < 10; j++) {
 				bugX = j;
 				bugY = i;
 				Location locationIII = new Location(bugX, bugY - 1);
