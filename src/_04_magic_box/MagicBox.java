@@ -52,6 +52,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		frame.add(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
+		frame.addMouseListener(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
@@ -78,8 +79,15 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (backgroundImage.getRGB(e.getX(), e.getY()) == -4410751) {
+			MediaPalace.speak("This is a brick.");
+		}else if (backgroundImage.getRGB(e.getX(), e.getY()) == -727618) {
+			MediaPalace.speak("Were you expecting something exciting to happen?");
+		}else if (backgroundImage.getRGB(e.getX(), e.getY()) == -1187934) {
+			MediaPalace.speak("Yep, it's water.");
+		}else {
+			System.out.println(backgroundImage.getRGB(e.getX(), e.getY()));
+		}
 	}
 
 	@Override
